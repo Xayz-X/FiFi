@@ -13,6 +13,8 @@ logger: logging.Logger = logging.getLogger(__name__)
 
 
 class Bot(commands.Bot):
+    pool = ...
+    
     def __init__(self) -> None:
         ua: str = (
             f"FiFi Bot/{__version__}, Python/{sys.version}, Discord.py/{discord.__version__}"
@@ -40,3 +42,5 @@ class Bot(commands.Bot):
     async def close(self) -> None:
         await self.session.close()
         return await super().close()
+
+    
