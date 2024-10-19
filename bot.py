@@ -1,6 +1,8 @@
 import logging
 import sys
 import aiohttp
+import asyncpg
+import json
 from typing_extensions import Self
 
 import discord
@@ -16,7 +18,8 @@ _log: logging.Logger = logging.getLogger(__name__)
 
 
 class FIFIBot(commands.Bot):
-    pool = ...
+
+    pool: asyncpg.Pool = None
 
     def __init__(self) -> None:
         ua: str = (
