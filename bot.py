@@ -1,20 +1,21 @@
 import logging
 import sys
-
 import aiohttp
+from typing_extensions import Self
+
 import discord
 from discord.ext import commands
 
-from . import __version__
-from .config import CONFIG
+from core import __version__
+from typings import Context
+from core.config import CONFIG
+
+_log: logging.Logger = logging.getLogger(__name__)
 
 
-logger: logging.Logger = logging.getLogger(__name__)
-
-
-class Bot(commands.Bot):
+class FIFIBot(commands.Bot):
     pool = ...
-    
+
     def __init__(self) -> None:
         ua: str = (
             f"FiFi Bot/{__version__}, Python/{sys.version}, Discord.py/{discord.__version__}"
@@ -32,15 +33,18 @@ class Bot(commands.Bot):
             command_prefix=["f! ", "?"], intents=intents, case_insensitive=True
         )
 
+    async def get_context(
+        self, origin: discord.Message | discord.Interaction[Self]
+    ) -> Context:
+        return await super().get_context(origin, cls=Context)
+
     async def setup_hook(self) -> None:
         await self.load_extension("jishaku")
         await self.load_extension("extensions")
 
     async def on_ready(self) -> None:
-        logger.info(f"Logged in as: {self.user}")
+        _log.info(f"Logged in as: {self.user}")
 
     async def close(self) -> None:
         await self.session.close()
         return await super().close()
-
-    

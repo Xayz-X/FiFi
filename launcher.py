@@ -1,9 +1,8 @@
 import asyncio
 import logging
-
-import discord
-
 import core
+import discord
+from bot import FIFIBot
 
 
 discord.utils.setup_logging(level=logging.INFO)
@@ -11,7 +10,7 @@ discord.utils.setup_logging(level=logging.INFO)
 
 def main() -> None:
     async def start() -> None:
-        async with core.Bot() as bot:
+        async with FIFIBot() as bot:
             await bot.start(core.CONFIG["BOT"]["token"], reconnect=True)
 
     try:

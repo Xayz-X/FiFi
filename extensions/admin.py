@@ -2,19 +2,18 @@ from typing import Literal
 
 import discord
 from discord.ext import commands
+from typings import Context, BaseCog
+from bot import FIFIBot
 
-import core
 
-
-class Admin(commands.Cog):
-    ...
+class Admin(BaseCog):
 
     @commands.command()
     @commands.guild_only()
     @commands.is_owner()
     async def sync(
         self,
-        ctx: commands.Context[core.Bot],
+        ctx: Context,
         guilds: commands.Greedy[discord.Object],
         spec: Literal["~", "*", "^"] | None = None,
     ) -> None:
@@ -48,5 +47,5 @@ class Admin(commands.Cog):
         await ctx.send(f"Synced the tree to {ret}/{len(guilds)}.")
 
 
-async def setup(bot: core.Bot) -> None:
+async def setup(bot: FIFIBot) -> None:
     await bot.add_cog(Admin())

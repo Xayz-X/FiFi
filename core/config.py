@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import toml
 from typing import cast
-from types_.config import Config
+from typings.config import Config
 
 
 def load_config(file_path: str) -> Config:
