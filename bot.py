@@ -2,13 +2,11 @@ import logging
 import sys
 import aiohttp
 import asyncpg
-import json
 from typing_extensions import Self
 
 import discord
 from discord.ext import commands
 
-from core import __version__
 from typings import Context
 from core import CONFIG
 from translations import TreeTranslator
@@ -23,7 +21,7 @@ class FIFIBot(commands.Bot):
 
     def __init__(self) -> None:
         ua: str = (
-            f"FiFi Bot/{__version__}, Python/{sys.version}, Discord.py/{discord.__version__}"
+            f"FiFi Bot/{CONFIG.BOT.version}, Python/{sys.version}, Discord.py/{discord.__version__}"
         )
         self.session: aiohttp.ClientSession = aiohttp.ClientSession(
             headers={"User-Agent": ua}

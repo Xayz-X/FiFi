@@ -1,2 +1,2 @@
 # FiFi
-### Small Discord Bot for FiFi.
+### Under construction. 🤫
