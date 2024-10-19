@@ -1,6 +1,6 @@
 import asyncio
 import logging
-import core
+from core import CONFIG
 import discord
 from bot import FIFIBot
 from database import create_pool
@@ -15,13 +15,14 @@ def main() -> None:
 
     async def start() -> None:
         try:
-            pool = await create_pool(dsn=core.CONFIG["DATABASE"]["dsn"])
+            pool = await create_pool(dsn=CONFIG.DATABASE.dsn)
+            _log.info(f"Created Database Pool Successfully")
         except Exception as e:
             _log.error(f"Failed to create pool: {e}")
             return
         async with FIFIBot() as bot:
             bot.pool = pool
-            await bot.start(core.CONFIG["BOT"]["token"], reconnect=True)
+            await bot.start(CONFIG.BOT.token, reconnect=True)
 
     try:
         asyncio.run(start())

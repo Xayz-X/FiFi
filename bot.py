@@ -10,7 +10,7 @@ from discord.ext import commands
 
 from core import __version__
 from typings import Context
-from core.config import CONFIG
+from core import CONFIG
 from translations import TreeTranslator
 
 
@@ -28,7 +28,7 @@ class FIFIBot(commands.Bot):
         self.session: aiohttp.ClientSession = aiohttp.ClientSession(
             headers={"User-Agent": ua}
         )
-        self.debug: bool = CONFIG["BOT"]["debug"]
+        self.debug: bool = CONFIG.BOT.debug
 
         intents: discord.Intents = discord.Intents.default()
         intents.members = True
