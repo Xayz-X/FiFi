@@ -9,6 +9,8 @@ from discord.ext import commands
 from core import __version__
 from typings import Context
 from core.config import CONFIG
+from translations import TreeTranslator
+
 
 _log: logging.Logger = logging.getLogger(__name__)
 
@@ -39,6 +41,11 @@ class FIFIBot(commands.Bot):
         return await super().get_context(origin, cls=Context)
 
     async def setup_hook(self) -> None:
+
+        await self.tree.set_translator(
+            TreeTranslator()
+        )  # sets the custom translator for the bot
+
         await self.load_extension("jishaku")
         await self.load_extension("extensions")
 
