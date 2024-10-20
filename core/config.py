@@ -21,17 +21,18 @@ class BotConfig:
         The bot version.
     """
 
-    def __init__(self, token: str, debug: bool, version: str) -> None:
+    def __init__(self, token: str, debug: bool, version: str, exception_webhook: str) -> None:
         self.token: str = token
         self.debug: bool = debug
         self.version: str = version
+        self.exception_webhook: str = exception_webhook
 
     def __str__(self) -> str:
         return self.token
 
     def __repr__(self) -> str:
         return (
-            f"<BotConfig token={self.token} debug={self.debug} version={self.version}>"
+            f"<BotConfig token={self.token} debug={self.debug} version={self.version} exception_webhook={self.exception_webhook}>"
         )
 
 
@@ -80,6 +81,7 @@ class ConfigNode:
             token=bot_data.get("token", ""),
             debug=bot_data.get("debug", False),
             version=bot_data.get("version", ""),
+            exception_webhook=bot_data.get("exception_webhook", ""),
         )
 
         database_config = DatabaseConfig(

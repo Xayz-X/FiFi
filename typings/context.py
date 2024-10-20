@@ -67,7 +67,7 @@ class Context(commands.Context["FIFIBot"]):
 
     async def prompt(
         self,
-        message: str = "",
+        message: str = "",  # message content cannot be none so we set the defualt value to empty string -> ""
         embed: discord.Embed | None = None,
         *,
         timeout: float = 60.0,
@@ -109,7 +109,7 @@ class Context(commands.Context["FIFIBot"]):
             content=message,
             embed=embed,
             view=view,
-            ephemeral=delete_after,  # content cannot be none so we set the defualt value to empty string -> ""
+            ephemeral=delete_after,
         )
         await view.wait()
         return view.value
@@ -137,7 +137,7 @@ class Context(commands.Context["FIFIBot"]):
                 file=discord.File(fp, filename="message_too_long.txt"), **kwargs
             )
         else:
-            return await self.send(content)
+            return await self.send(content, **kwargs)
 
     async def show_help(self, command: Any | None = None) -> None:
         """
