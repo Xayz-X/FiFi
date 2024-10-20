@@ -25,6 +25,14 @@ class BotConfig:
         The owner ID.
     """
 
+    __slots__: tuple[str, ...] = (
+        "token",
+        "debug",
+        "version",
+        "exception_webhook",
+        "owner_id",
+    )
+
     def __init__(
         self,
         token: str,
@@ -58,6 +66,8 @@ class DatabaseConfig:
         The database connection string.
     """
 
+    __slots__: tuple[str, ...] = ("dsn",)
+
     def __init__(self, dsn: str) -> None:
         self.dsn: str = dsn
 
@@ -79,6 +89,8 @@ class ConfigNode:
     database : `DatabaseConfig`
         The database configuration.
     """
+
+    __slots__: tuple[str, ...] = ("bot", "database")
 
     def __init__(self, bot: BotConfig, database: DatabaseConfig) -> None:
         self.BOT: BotConfig = bot
