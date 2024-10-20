@@ -19,21 +19,33 @@ class BotConfig:
         Whether the bot is in debug mode.
     version : `str`
         The bot version.
+    exception_webhook : `str`
+        The webhook to send errors to.
+    owner_id : `int`
+        The owner ID.
     """
 
-    def __init__(self, token: str, debug: bool, version: str, exception_webhook: str) -> None:
+    def __init__(
+        self,
+        token: str,
+        debug: bool,
+        version: str,
+        exception_webhook: str,
+        owner_id: int,
+    ) -> None:
         self.token: str = token
         self.debug: bool = debug
         self.version: str = version
         self.exception_webhook: str = exception_webhook
+        self.owner_id: int = (
+            owner_id  # This is not required because we can get it from app info. It's just optional.
+        )
 
     def __str__(self) -> str:
         return self.token
 
     def __repr__(self) -> str:
-        return (
-            f"<BotConfig token={self.token} debug={self.debug} version={self.version} exception_webhook={self.exception_webhook}>"
-        )
+        return f"<BotConfig debug={self.debug} version={self.version}>"
 
 
 class DatabaseConfig:
@@ -82,6 +94,7 @@ class ConfigNode:
             debug=bot_data.get("debug", False),
             version=bot_data.get("version", ""),
             exception_webhook=bot_data.get("exception_webhook", ""),
+            owner_id=bot_data.get("owner_id", 0),
         )
 
         database_config = DatabaseConfig(
