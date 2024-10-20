@@ -1,15 +1,17 @@
-from typing import Literal
+from typing import Literal, Annotated
 
+from click import command
 import discord
 from discord.ext import commands
+from flask import app
 from typings import Context, BaseCog
 from bot import FIFIBot
+from discord import app_commands
 
 
 class Admin(BaseCog):
     def __init__(self, bot: FIFIBot = FIFIBot) -> None:
         super().__init__(bot=bot)
-
 
     @commands.command()
     @commands.guild_only()
@@ -49,16 +51,21 @@ class Admin(BaseCog):
 
         await ctx.send(f"Synced the tree to {ret}/{len(guilds)}.")
 
-
-    @commands.command()
-    @commands.is_owner()
-    async def test(self, ctx: Context, number: int=20) -> None:
-        query = """
-        SELECT name FROM test_data WHERE id = $1;  
+    @app_commands.command()
+    async def test(self, interaction: discord.Interaction, number: int = 20) -> None:
         """
-        result = await ctx.db.fetchrow(query, number)
-        await ctx.send(result)
+        This is a test command
 
+        Parameters
+        ----------
+        number: int
+            The number to test
+
+        Permissions
+        ----------
+            This is extra data.
+        """
+        await interaction.response.send_message(f"Hello {number}")
 
 
 async def setup(bot: FIFIBot) -> None:

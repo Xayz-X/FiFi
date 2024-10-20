@@ -3,9 +3,17 @@ from discord import app_commands
 
 
 class TreeTranslator(app_commands.Translator):
-  
-    async def load(self): ...
-    async def unload(self): ...
+    """
+    This class is a part ot app command translation system. Translate the command name description as per user locale.
+    """
+
+    async def load(self):
+        # Not implemented yet
+        ...
+
+    async def unload(self):
+        # Not implemented yet
+        ...
 
     async def translate(
         self,

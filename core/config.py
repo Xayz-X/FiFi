@@ -8,6 +8,19 @@ __all__: tuple[str, ...] = ("CONFIG",)
 
 
 class BotConfig:
+    """
+    A configuration for the bot.
+
+    Attributes
+    ----------
+    token : `str`
+        The bot token.
+    debug : `bool`
+        Whether the bot is in debug mode.
+    version : `str`
+        The bot version.
+    """
+
     def __init__(self, token: str, debug: bool, version: str) -> None:
         self.token: str = token
         self.debug: bool = debug
@@ -23,6 +36,15 @@ class BotConfig:
 
 
 class DatabaseConfig:
+    """
+    A configuration for the database.
+
+    Attributes
+    ----------
+    dsn : `str`
+        The database connection string.
+    """
+
     def __init__(self, dsn: str) -> None:
         self.dsn: str = dsn
 
@@ -34,6 +56,17 @@ class DatabaseConfig:
 
 
 class ConfigNode:
+    """
+    A configuration node for the bot.
+
+    Attributes
+    ----------
+    bot : `BotConfig`
+        The bot configuration.
+    database : `DatabaseConfig`
+        The database configuration.
+    """
+
     def __init__(self, bot: BotConfig, database: DatabaseConfig) -> None:
         self.BOT: BotConfig = bot
         self.DATABASE: DatabaseConfig = database
@@ -75,4 +108,6 @@ def load_config(file_path: Path) -> ConfigNode:
         raise RuntimeError(f"Error decoding TOML file {file_path}.")
 
 
+# Try to load the config.toml file ->
+# IF failed to load raise a RuntimeError
 CONFIG: ConfigNode = load_config(Path("config.toml"))
