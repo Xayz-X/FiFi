@@ -90,7 +90,7 @@ class ConfigNode:
         The database configuration.
     """
 
-    __slots__: tuple[str, ...] = ("bot", "database")
+    __slots__: tuple[str, ...] = ("BOT", "DATABASE")
 
     def __init__(self, bot: BotConfig, database: DatabaseConfig) -> None:
         self.BOT: BotConfig = bot

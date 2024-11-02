@@ -1,13 +1,13 @@
 from typing import Literal, Annotated
 
-from click import command
 import discord
 from discord.ext import commands
-from flask import app
-from typings import Context, BaseCog
+from numpy import number
+from _typings import Context, BaseCog
 from bot import FIFIBot
 from discord import app_commands
 
+from discord.app_commands import locale_str as _T
 
 class Admin(BaseCog):
     def __init__(self, bot: FIFIBot = FIFIBot) -> None:
@@ -51,7 +51,9 @@ class Admin(BaseCog):
 
         await ctx.send(f"Synced the tree to {ret}/{len(guilds)}.")
 
-    @app_commands.command()
+    @app_commands.command(name=_T("testing"),
+                          description=_T("This is a teting command."))
+    @app_commands.describe(number=_T("This is a number."))
     async def test(self, interaction: discord.Interaction, number: int = 20) -> None:
         """
         This is a test command
@@ -66,6 +68,9 @@ class Admin(BaseCog):
             This is extra data.
         """
         await interaction.response.send_message(f"Hello {number}")
+
+
+
 
 
 async def setup(bot: FIFIBot) -> None:

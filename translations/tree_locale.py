@@ -1,3 +1,4 @@
+from threading import local
 import discord
 from discord import app_commands
 
@@ -33,6 +34,18 @@ class TreeTranslator(app_commands.Translator):
         context : app_commands.TranslationContext
             The origin of this string, eg TranslationContext.command_name, etc
         """
+        print(locale)
+        if locale == discord.Locale.japanese:
+            message_str = str(string.message)
+            print(message_str)
+            if message_str == "testing":
+                return "テスト"
+            elif message_str == "This is a teting command.":
+                return "これはテストコマンドです。"
 
-        message_str = string.message
-        return message_str
+            elif message_str == "number":
+                return "数字"
+            elif message_str == "This is a number.":
+                return "これは数字です。"
+            
+        return None

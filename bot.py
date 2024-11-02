@@ -6,7 +6,7 @@ import asyncpg
 import discord
 from discord.ext import commands
 
-from typings import Context
+from _typings import Context
 from core import CONFIG
 from translations import TreeTranslator
 
